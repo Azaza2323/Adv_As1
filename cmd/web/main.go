@@ -20,7 +20,7 @@ type application struct {
 func main() {
 	addr := flag.String("addr", ":3000", "HTTP network address")
 	debug := flag.Bool("debug", false, "Enable debug mode")
-	dsn := flag.String("dsn", "root:WheelyStrongPwd@/articles?parseTime=true", "news")
+	dsn := flag.String("dsn", "root:123123@/snippetbox?parseTime=true", "news")
 	flag.Parse()
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
