@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css" />
+    <title>Latest 10 News</title>
+</head>
+<body>
+    <header>
+        <h1>Latest 10 News</h1>
+    </header>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/news">News</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+            <div class="dropdown-content">
+                <a href="#">For Students</a>
+                <a href="#">For Staff</a>
+                <a href="#">For Applications</a>
+            </div>
+        </li>
+        <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="content">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Audience</th>
+                    <th>Author</th>
+                    <th>Description</th>
+                    <th>Content</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .News}}
+                    <tr>
+                        <td>{{.Title}}</td>
+                        <td>{{.Audience}}</td>
+                        <td>{{.Author}}</td>
+                        <td>{{.Description}}</td>
+                        <td>{{.Content}}</td>
+                    </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

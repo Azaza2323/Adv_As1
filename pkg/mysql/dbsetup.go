@@ -25,19 +25,19 @@ func (m *NewsModel) Insert(audience, author, title, description, content string)
 }
 
 func (m *NewsModel) Latest() ([]*models.News, error) {
-	stmt := `SELECT id, audience, author, title, description, content, created FROM news ORDER BY created DESC LIMIT 10`
+	stmt := `SELECT id, audience, author, title, description, content FROM news LIMIT 10`
 	rows, err := m.DB.Query(stmt)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	newsList := []*models.News{}
+	var newsList []*models.News
 
 	for rows.Next() {
 		n := &models.News{}
 
-		err := rows.Scan(&n.ID, &n.Audience, &n.Author, &n.Title, &n.Description, &n.Content, &n.Created)
+		err := rows.Scan(&n.ID, &n.Audience, &n.Author, &n.Title, &n.Description, &n.Content)
 		if err != nil {
 			return nil, err
 		}
@@ -52,45 +52,17 @@ func (m *NewsModel) Latest() ([]*models.News, error) {
 }
 
 func (m *NewsModel) GetByAudience(audience string) ([]*models.News, error) {
-	stmt := `SELECT id, audience, author, title, description, content, created FROM news WHERE audience = ? ORDER BY created DESC LIMIT 10`
-	rows, err := m.DB.Query(stmt, audience)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-
-	newsList := []*models.News{}
+	stmt := `SELECT id, audience, author, title, description, content FROM news WHERE audience = ? DESC LIMIT 10`
+	rows, _ := m.DB.Query(stmt, audience)
+	var s []*models.News
 
 	for rows.Next() {
 		n := &models.News{}
-
-		err := rows.Scan(&n.ID, &n.Audience, &n.Author, &n.Title, &n.Description, &n.Content, &n.Created)
+		err := rows.Scan(&n.ID, &n.Audience, &n.Author, &n.Title, &n.Description, &n.Content)
 		if err != nil {
 			return nil, err
 		}
-		newsList = append(newsList, n)
+		s = append(s, n)
 	}
-
-	if err = rows.Err(); err != nil {
-		return nil, err
-	}
-
-	return newsList, nil
-}
-
-func (m *NewsModel) Delete(id int) (bool, error) {
-	stmt := `DELETE FROM news WHERE id = ?`
-	_, err := m.DB.Exec(stmt, id)
-	if err != nil {
-		return false, err
-	}
-	return true, nil
-}
-func (m *NewsModel) Update(id int, audience, author, title, description, content string) (bool, error) {
-	stmt := `UPDATE news SET audience = ?, author = ?, title = ?, description = ?, content = ? WHERE id = ?`
-	_, err := m.DB.Exec(stmt, audience, author, title, description, content, id)
-	if err != nil {
-		return false, err
-	}
-	return true, nil
+	return s, nil
 }
