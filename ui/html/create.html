@@ -1,52 +1,35 @@
-<html lang="eg">
-<head>
-    <link rel="stylesheet" href="/css/style.css" />
-    <title>Home</title>
-</head>
-<body>
-<header>
-    <h1>AITU News Blog</h1>
-</header>
-<ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/news">News</a></li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
-        <div class="dropdown-content">
-            <a href="#">For Students</a>
-            <a href="#">For Staff</a>
-            <a href="#">For Researchers</a>
-            <a href="#">For Applications</a>
-        </div>
-    </li>
-    <li><a href="/contact">Contact</a></li>
-</ul>
-<div class="content">
-    <h2>Welcome to our News Blog!</h2>
-    <p>Stay updated with the latest news and information.</p>
-</div>
-<button class="big-button" id="showFormButton">Post News</button>
-<form id="createNewsForm" style="display:none;" action="/add" method="post">
-    <label for="audience">Audience:</label>
-    <input type="text" name="audience" required><br>
-    <label for="author">Author:</label>
-    <input type="text" name="author" required><br>
-    <label for="title">Title:</label>
-    <input type="text" name="title" required><br>
-    <label for="description">Description:</label>
-    <textarea name="description" required></textarea><br>
-    <label for="content">Content:</label>
-    <textarea name="content" required></textarea><br>
-    <input type="submit" value="Submit">
-</form>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('showFormButton').addEventListener('click', function () {
-        var form = document.getElementById('createNewsForm');
-        form.style.display = (form.style.display === 'none') ? 'block' : 'none';
-    });
-    });
-</script>
-</body>>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+</head>
+
+<body>
+<h1>Create a Post</h1>
+
+<form action="/addNews" method="POST">
+    <label for="audience">Audience:</label>
+    <input type="text" id="audience" name="audience" required>
+
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author" required>
+
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="content">Content:</label>
+    <textarea id="content" name="content" required></textarea>
+
+    <button type="submit">Create Post</button>
+</form>
+</body>
+
 </html>

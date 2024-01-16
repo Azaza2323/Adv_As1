@@ -56,8 +56,21 @@ func (a *application) addNewsHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error adding news", http.StatusInternalServerError)
 		return
 	}
+
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
-func (a *application) createNewsHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "./ui/html/create.html")
+
+func (a *application) showCreateForm(w http.ResponseWriter, r *http.Request) {
+	templatePath := "ui/html/create.html"
+	tmpl, err := template.ParseFiles(templatePath)
+	if err != nil {
+		http.Error(w, "Error parsing template", http.StatusInternalServerError)
+		return
+	}
+
+	err = tmpl.Execute(w, nil)
+	if err != nil {
+		http.Error(w, "Error executing template", http.StatusInternalServerError)
+		return
+	}
 }
