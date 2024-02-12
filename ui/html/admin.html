@@ -1,5 +1,7 @@
-<html lang="eg">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -158,32 +160,53 @@
         }
 
     </style>
-    <title>Home</title>
+    <title>ADMIN PAGE</title>
 </head>
 <body>
 <header>
-    <h1>AITU News Blog</h1>
+    <h1>ADMIN</h1>
 </header>
 <ul>
-    <li><a href="/">Home</a></li>
+    <li><a href="/creator">Home</a></li>
     <li><a href="/news">News</a></li>
     <li class="dropdown">
         <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
         <div class="dropdown-content">
-            <a href="#">For Students</a>
-            <a href="#">For Staff</a>
-            <a href="#">For Researchers</a>
-            <a href="#">For Applications</a>
+            <a href="/for?audience=students">Students</a>
+            <a href="/for?audience=staff">Staff</a>
+            <a href="/for?audience=applications">Applications</a>
         </div>
+
     </li>
     <li><a href="/contact">Contact</a></li>
+    <li><a href="/deps">Departments</a></li>
+    <div class="nav-links">
+        <form action='/user/logout' method='POST'>
+            <button>Logout</button>
+        </form>
+    </div>
 </ul>
-<div class="article">
-    <h1>Title : {{.post.Audience}}</h1> <br>
-    <p>Author : {{.Post.AuthorName}}</p> <br>
-    <p>Content : {{.Post.Content}}</p> <br>
-    <p>Categories: {{range $index, $cat := .Post.Cats}}{{if $index}}, {{end}}{{.Name}}{{end}}</p>
+<div class="content">
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>User</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .Users}}
+        <tr>
+            <td>{{.Id}}</td>
+            <td>{{.Name}}</td>
+            <td>{{.Email}}</td>
+            <td>{{.Role}}</td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
 </div>
-
 </body>
 </html>

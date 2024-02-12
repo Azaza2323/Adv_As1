@@ -199,10 +199,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post</title>
+    <title>Login</title>
 </head>
 <header>
-    <h1>Create Post</h1>
+    <h1>Login</h1>
 </header>
 <body>
 <ul>
@@ -218,32 +218,16 @@
     </li>
     <li><a href="/contact">Contact</a></li>
 </ul>
-<form action="/create/add" method="POST">
-    <label for="audience">Audience</label>
-    <select id="audience" name="audience" required>
-        <option value="students">students</option>
-        <option value="staff">staff</option>
-        <option value="applications">applications</option>
-    </select>
+<form action="/user/login" method="POST">
 
-    <label for="author">Author:</label>
-    <input type="text" id="author" name="author" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
 
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required>
-
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" required></textarea>
-
-    <label for="content">Content:</label>
-    <textarea id="content" name="content" required></textarea>
-
-    <button type="submit">Create Post</button>
-    {{if .Flash}}
-    <div class="flash-message">{{.Flash}}</div>
-    {{end}}
+    <button type="submit">Login</button>
 </form>
-</body>
 
+</body>
 </html>
 

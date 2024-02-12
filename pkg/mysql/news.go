@@ -52,7 +52,7 @@ func (m *NewsModel) Latest() ([]*models.News, error) {
 }
 
 func (m *NewsModel) GetByAudience(audience string) ([]*models.News, error) {
-	stmt := `SELECT id, audience, author, title, description, content FROM news WHERE audience = ? DESC LIMIT 10`
+	stmt := `SELECT * FROM news WHERE audience = ? ORDER BY id DESC LIMIT 10`
 	rows, _ := m.DB.Query(stmt, audience)
 	var s []*models.News
 

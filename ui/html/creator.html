@@ -1,7 +1,5 @@
-<html lang="en">
+<html lang="eg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -158,53 +156,62 @@
             background-color: #316bad;
             color: #fff;
         }
+        div.nav-links {
+            text-align: right;
+            padding: 10px;
+        }
+
+        div.nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        div.nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        div.nav-links form {
+            display: inline;
+            margin-left: 10px;
+        }
 
     </style>
-    <title>Latest 10 News</title>
+    <title>Home</title>
 </head>
 <body>
-    <header>
-        <h1>Latest 10 News</h1>
-    </header>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/news">News</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
-            <div class="dropdown-content">
-                <a href="/for?audience=students">Students</a>
-                <a href="/for?audience=staff">Staff</a>
-                <a href="/for?audience=applications">Applications</a>
-            </div>
-        </li>
-        <li><a href="/contact">Contact</a></li>
-        <li style="float:right; padding: 14px 16px;">
-            Logged in as {{.Username}} ({{.Role}})
-        </li>
-    </ul>
-    <div class="content">
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Audience</th>
-                    <th>Author</th>
-                    <th>Description</th>
-                    <th>Content</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{range .News}}
-                    <tr>
-                        <td>{{.Title}}</td>
-                        <td>{{.Audience}}</td>
-                        <td>{{.Author}}</td>
-                        <td>{{.Description}}</td>
-                        <td>{{.Content}}</td>
-                    </tr>
-                {{end}}
-            </tbody>
-        </table>
+<header>
+    <h1>AITU News Blog</h1>
+</header>
+<ul>
+    <li><a href="/creator">Home</a></li>
+    <li><a href="/news">News</a></li>
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+        <div class="dropdown-content">
+            <a href="/for?audience=students">Students</a>
+            <a href="/for?audience=staff">Staff</a>
+            <a href="/for?audience=applications">Applications</a>
+        </div>
+
+    </li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/deps">Departments</a></li>
+    <div class="nav-links">
+        <form action='/user/logout' method='POST'>
+            <button>Logout</button>
+        </form>
     </div>
+</ul>
+<div class="content">
+    <h2>Welcome, {{.Username}}</h2>
+    <p>Stay updated with the latest news and information.</p>
+    <button class="big-button" onclick="goToCreatePage()" >Create a News!</button>
+</div>
+<script>
+    function goToCreatePage() {
+        window.location.href = '/create';
+    }
+</script>
 </body>
 </html>

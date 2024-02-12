@@ -218,32 +218,18 @@
     </li>
     <li><a href="/contact">Contact</a></li>
 </ul>
-<form action="/create/add" method="POST">
-    <label for="audience">Audience</label>
-    <select id="audience" name="audience" required>
-        <option value="students">students</option>
-        <option value="staff">staff</option>
-        <option value="applications">applications</option>
-    </select>
+<form action="/deps/create/add" method="POST">
 
-    <label for="author">Author:</label>
-    <input type="text" id="author" name="author" required>
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="id" required><br>
 
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" required>
+    <label for="depID">Department ID:</label>
+    <input type="text" id="depID" name="depID" required><br>
 
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" required></textarea>
+    <label for="staff_q">Staff Quantity:</label>
+    <input type="text" id="staff_q" name="staff_q" required><br>
 
-    <label for="content">Content:</label>
-    <textarea id="content" name="content" required></textarea>
-
-    <button type="submit">Create Post</button>
-    {{if .Flash}}
-    <div class="flash-message">{{.Flash}}</div>
-    {{end}}
+    <button type="submit">Post</button>
 </form>
 </body>
-
 </html>
-

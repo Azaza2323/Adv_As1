@@ -156,7 +156,25 @@
         background-color: #316bad;
         color: #fff;
       }
+      div.nav-links {
+        text-align: right;
+        padding: 10px;
+      }
 
+      div.nav-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 10px;
+      }
+
+      div.nav-links a:hover {
+        text-decoration: underline;
+      }
+
+      div.nav-links form {
+        display: inline;
+        margin-left: 10px;
+      }
     </style>
     <title>Home</title>
   </head>
@@ -170,26 +188,27 @@
       <li class="dropdown">
         <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
         <div class="dropdown-content">
-          <a href="#">For Students</a>
-          <a href="#">For Staff</a>
-          <a href="#">For Researchers</a>
-          <a href="#">For Applications</a>
+          <a href="/for?audience=students">Students</a>
+          <a href="/for?audience=staff">Staff</a>
+          <a href="/for?audience=applications">Applications</a>
         </div>
       </li>
       <li><a href="/contact">Contact</a></li>
+      <li><a href="/deps">Departments</a></li>
+      <div class="nav-links">
+        <a href='/user/signup'>Signup</a>
+        <a href='/user/login'>Login</a>
+      </div>
     </ul>
     <div class="content">
       <h2>Welcome to our News Blog!</h2>
       <p>Stay updated with the latest news and information.</p>
+      <button class="big-button" onclick="goToAuthPage()">Auth first</button>
     </div>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('showFormButton').addEventListener('click', function () {
-          var form = document.getElementById('createNewsForm');
-          form.style.display = (form.style.display === 'none') ? 'block' : 'none';
-        });
-      });
+      function goToAuthPage(){
+        window.location.href = '/user/login';
+      }
     </script>
-
   </body>
 </html>
