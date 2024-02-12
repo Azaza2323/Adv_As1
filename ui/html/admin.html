@@ -203,10 +203,42 @@
             <td>{{.Name}}</td>
             <td>{{.Email}}</td>
             <td>{{.Role}}</td>
+            <td>
+                <button onclick="changeRole('{{.Id}}', '{{.Role}}')">Change Role</button>
+            </td>
         </tr>
         {{end}}
         </tbody>
     </table>
 </div>
+<script>
+    function changeRole(userId, currentRole) {
+        const newRole = currentRole === 'creator' ? 'reader' : 'creator';
+
+        fetch('/changeRole', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, newRole }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to change role');
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('Role changed successfully');
+                document.getElementById(`role_${userId}`).textContent = newRole;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to change role');
+            });
+    }
+
+
+</script>
 </body>
 </html>

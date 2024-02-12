@@ -11,7 +11,7 @@ func (a *application) routes() http.Handler {
 	publicMiddleware := alice.New()
 	mux := pat.New()
 	mux.Get("/", publicMiddleware.ThenFunc(a.home))
-	mux.Get("/news", publicMiddleware.ThenFunc(a.getAllNews))
+	mux.Get("/news", dynamicMiddleware.Append(a.isAuth).ThenFunc(a.getAllNews))
 	mux.Get("/contact", publicMiddleware.Append(a.isAuth).ThenFunc(a.contact))
 	mux.Get("/deps", publicMiddleware.Append(a.isAuth).ThenFunc(a.getAllDeps))
 	mux.Get("/deps/create", dynamicMiddleware.Append(a.isAuth).ThenFunc(a.showDepartmentForm))
@@ -27,6 +27,7 @@ func (a *application) routes() http.Handler {
 	mux.Post("/user/login", dynamicMiddleware.ThenFunc(a.loginUser))
 	mux.Post("/create/add", dynamicMiddleware.Append(a.isAuth).ThenFunc(a.addNewsHandler))
 	mux.Post("/deps/create/add", dynamicMiddleware.Append(a.isAuth).ThenFunc(a.fillDep))
+	mux.Post("/changeRole", dynamicMiddleware.ThenFunc(a.changeRoleHandler))
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
 	mux.Get("/static/", http.StripPrefix("/static", fileServer))
 	return mux

@@ -2,6 +2,7 @@ package main
 
 import (
 	models "asik1/pkg"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"html/template"
@@ -385,4 +386,25 @@ func (a *application) adminPage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Error executing template", http.StatusInternalServerError)
 		return
 	}
+}
+func (a *application) changeRoleHandler(w http.ResponseWriter, r *http.Request) {
+	// Parse request body
+	var requestBody struct {
+		UserID  string `json:"userId"`
+		NewRole string `json:"newRole"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&requestBody); err != nil {
+		http.Error(w, "Bad request", http.StatusBadRequest)
+		return
+	}
+	err := a.users.ChangeUserRole(requestBody.UserID, requestBody.NewRole)
+	if err != nil {
+		a.errorLog.Println("Error updating user role:", err)
+		http.Error(w, "Error updating user role", http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with success
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{"message": "Role updated successfully"})
 }

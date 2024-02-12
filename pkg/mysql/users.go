@@ -49,22 +49,6 @@ func (u *UserModel) Authenticate(email, password string) (int, error) {
 
 	return id, nil
 }
-func (u *UserModel) Get(id int) (*models.User, error) {
-	query := `SELECT * FROM users WHERE id=?`
-	row := u.DB.QueryRow(query, id)
-	user := &models.User{}
-
-	err := row.Scan(&user.Id, &user.Name, &user.Email, &user.Role)
-	if err != nil {
-		// Handle any errors (e.g., user not found)
-		if errors.Is(err, sql.ErrNoRows) {
-			return nil, nil
-		}
-		return nil, err
-	}
-
-	return user, nil
-}
 func (u *UserModel) GetByEmail(email string) (*models.User, error) {
 	query := "SELECT * FROM users WHERE email = ?"
 	row := u.DB.QueryRow(query, email)
@@ -108,8 +92,8 @@ func (u *UserModel) GetNameByEmail(email string) (string, error) {
 	}
 	return name, nil
 }
-func (ur *UserModel) GetAllUsers() ([]*models.User, error) {
-	rows, err := ur.DB.Query("SELECT id,name,email,role FROM users WHERE role!='admin'")
+func (u *UserModel) GetAllUsers() ([]*models.User, error) {
+	rows, err := u.DB.Query("SELECT id,name,email,role FROM users WHERE role!='admin'")
 	if err != nil {
 		return nil, err
 	}
@@ -131,4 +115,11 @@ func (ur *UserModel) GetAllUsers() ([]*models.User, error) {
 	}
 
 	return users, nil
+}
+func (u *UserModel) ChangeUserRole(userID, newRole string) error {
+	_, err := u.DB.Exec("UPDATE users SET role = ? WHERE id = ?", newRole, userID)
+	if err != nil {
+		return err
+	}
+	return nil
 }
